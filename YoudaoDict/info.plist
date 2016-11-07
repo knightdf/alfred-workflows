@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.irayd.dict</string>
+	<key>category</key>
+	<string>Productivity</string>
+	<key>connections</key>
+	<dict>
+		<key>24AD6911-181E-4DB1-AA75-B118AD61963F</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>767C2AC1-C0FB-4104-993A-9A13FCCB27F2</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Ray</string>
+	<key>description</key>
+	<string>Look up words and translate in YouDao dict.</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>YouDao Dict</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>yd</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Wait...</string>
+				<key>script</key>
+				<string>query="{query}"
+uid=1
+
+result=$(curl -s -G "http://fanyi.youdao.com/openapi.do?keyfrom=&amp;key=&amp;type=data&amp;doctype=json&amp;version=1.1" --data-urlencode "q=$query")
+
+explains=$(echo $result | /usr/local/bin/jq -r 'if .errorCode == 0 then .translation + .basic.explains | join(" | ") else "An error occurred." end')
+
+echo "&lt;items&gt; &lt;item autocomplete=\"autocompletex\" uid=\"$uid\" valid=\"yes\" arg=\"$query\"&gt; &lt;title&gt;$explains&lt;/title&gt; &lt;subtitle&gt;&lt;/subtitle&gt; &lt;icon&gt;icon.png&lt;/icon&gt; &lt;/item&gt; &lt;/items&gt;"
+</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Translated by YouDao Dict.</string>
+				<key>title</key>
+				<string>Input words or text to be translated</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>24AD6911-181E-4DB1-AA75-B118AD61963F</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>browser</key>
+				<string></string>
+				<key>spaces</key>
+				<string></string>
+				<key>url</key>
+				<string>http://dict.youdao.com/w/eng/{query}</string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>767C2AC1-C0FB-4104-993A-9A13FCCB27F2</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>24AD6911-181E-4DB1-AA75-B118AD61963F</key>
+		<dict>
+			<key>xpos</key>
+			<integer>80</integer>
+			<key>ypos</key>
+			<integer>50</integer>
+		</dict>
+		<key>767C2AC1-C0FB-4104-993A-9A13FCCB27F2</key>
+		<dict>
+			<key>xpos</key>
+			<integer>330</integer>
+			<key>ypos</key>
+			<integer>50</integer>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string>https://irayd.com</string>
+</dict>
+</plist>
